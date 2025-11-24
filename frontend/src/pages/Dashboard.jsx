@@ -54,7 +54,7 @@ export default function Dashboard() {
             ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
                     {projects.map((project) => (
-                        <div key={project.id} className="card" style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden' }} onClick={() => navigate(`/project/${project.id}`)}>
+                        <div key={project.id} className="card" style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden' }} onClick={() => navigate(project.status === 'draft' ? `/project/${project.id}/configure` : `/project/${project.id}/editor`)}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
                                 <span style={{
                                     display: 'inline-block',

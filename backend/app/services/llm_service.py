@@ -12,7 +12,7 @@ async def generate_section_content(topic: str, section_title: str, context: str 
     if not api_key:
         return "Error: Gemini API Key not configured."
     
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-3-pro-preview')
     prompt = f"""
     You are writing a section for a document about "{topic}".
     
@@ -34,7 +34,7 @@ async def generate_slide_content(topic: str, slide_title: str) -> dict:
     if not api_key:
         return {"bullets": ["Error: Gemini API Key not configured."], "notes": ""}
     
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-3-pro-preview')
     prompt = f"""
     You are creating a PowerPoint slide for a presentation about "{topic}".
     
@@ -79,7 +79,7 @@ async def refine_content(current_content: str, instruction: str) -> str:
     if not api_key:
         return "Error: Gemini API Key not configured."
     
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-3-pro-preview')
     prompt = f"""
     Original Content:
     {current_content}
