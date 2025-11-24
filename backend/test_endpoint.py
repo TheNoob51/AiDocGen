@@ -1,0 +1,20 @@
+import requests
+import json
+
+url = "http://localhost:8000/projects/"
+payload = {
+    "title": "Test Project",
+    "description": "Test Description",
+    "document_type": "docx",
+    "user_id": "test_user_123"
+}
+headers = {
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, json=payload, headers=headers)
+    print(f"Status Code: {response.status_code}")
+    print(f"Response Body: {response.text}")
+except Exception as e:
+    print(f"Error: {e}")
