@@ -9,6 +9,8 @@ router = APIRouter(
     tags=["generate"],
 )
 
+import asyncio
+
 async def generate_project_content_task(project_id: str):
     db = get_db()
     if not db:
@@ -32,6 +34,7 @@ async def generate_project_content_task(project_id: str):
         for section in outline:
             content = await generate_section_content(topic, section)
             generated_content[section] = content
+            await asyncio.sleep(2) # Rate limit protection
             
     elif project_data.get("document_type") == "pptx":
         slides = config.get("slides", [])
@@ -42,6 +45,7 @@ async def generate_project_content_task(project_id: str):
                 "title": title,
                 "content": content
             }
+            await asyncio.sleep(2) # Rate limit protection
             
     # Update project with generated content and status
     doc_ref.update({

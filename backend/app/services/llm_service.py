@@ -1,6 +1,8 @@
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+import asyncio
+import time
 
 load_dotenv()
 
@@ -8,11 +10,35 @@ api_key = os.getenv("GEMINI_API_KEY")
 if api_key:
     genai.configure(api_key=api_key)
 
-async def generate_section_content(topic: str, section_title: str, context: str = "") -> str:
+# Use a model that is likely to have better quota/availability
+MODEL_NAME = 'gemini-2.5-flash-lite-preview-09-2025'
+
+async def generate_content_with_retry(prompt: str, retries: int = 3, initial_delay: int = 5) -> str:
     if not api_key:
-        return "Error: Gemini API Key not configured."
+        raise Exception("Gemini API Key not configured.")
     
-    model = genai.GenerativeModel('gemini-3-pro-preview')
+    model = genai.GenerativeModel(MODEL_NAME)
+    delay = initial_delay
+    
+    for attempt in range(retries):
+        try:
+            # Use async generation if available, otherwise run in executor to avoid blocking
+            response = await model.generate_content_async(prompt)
+            return response.text
+        except Exception as e:
+            error_str = str(e)
+            if ("429" in error_str or "Quota exceeded" in error_str) and attempt < retries - 1:
+                print(f"Quota exceeded (429). Retrying in {delay}s... (Attempt {attempt + 1}/{retries})")
+                await asyncio.sleep(delay)
+                delay *= 2  # Exponential backoff
+            else:
+                # If it's the last attempt or not a quota error, re-raise
+                if attempt == retries - 1:
+                    raise e
+                raise e
+    return ""
+
+async def generate_section_content(topic: str, section_title: str, context: str = "") -> str:
     prompt = f"""
     You are writing a section for a document about "{topic}".
     
@@ -25,16 +51,11 @@ async def generate_section_content(topic: str, section_title: str, context: str 
     """
     
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        return await generate_content_with_retry(prompt)
     except Exception as e:
         return f"Error generating content: {str(e)}"
 
 async def generate_slide_content(topic: str, slide_title: str) -> dict:
-    if not api_key:
-        return {"bullets": ["Error: Gemini API Key not configured."], "notes": ""}
-    
-    model = genai.GenerativeModel('gemini-3-pro-preview')
     prompt = f"""
     You are creating a PowerPoint slide for a presentation about "{topic}".
     
@@ -51,8 +72,7 @@ async def generate_slide_content(topic: str, slide_title: str) -> dict:
     """
     
     try:
-        response = model.generate_content(prompt)
-        text = response.text
+        text = await generate_content_with_retry(prompt)
         
         bullets = []
         notes = ""
@@ -76,10 +96,6 @@ async def generate_slide_content(topic: str, slide_title: str) -> dict:
         return {"bullets": [f"Error: {str(e)}"], "notes": ""}
 
 async def refine_content(current_content: str, instruction: str) -> str:
-    if not api_key:
-        return "Error: Gemini API Key not configured."
-    
-    model = genai.GenerativeModel('gemini-3-pro-preview')
     prompt = f"""
     Original Content:
     {current_content}
@@ -90,7 +106,6 @@ async def refine_content(current_content: str, instruction: str) -> str:
     """
     
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        return await generate_content_with_retry(prompt)
     except Exception as e:
         return f"Error refining content: {str(e)}"
