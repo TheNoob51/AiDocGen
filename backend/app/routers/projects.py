@@ -94,3 +94,19 @@ async def update_project_config(project_id: str, config: DocumentConfig):
     })
     
     return {"message": "Configuration updated"}
+
+@router.delete("/{project_id}")
+async def delete_project(project_id: str):
+    db = get_db()
+    if not db:
+        raise HTTPException(status_code=503, detail="Database unavailable")
+    
+    doc_ref = db.collection("projects").document(project_id)
+    doc = doc_ref.get()
+    
+    if not doc.exists:
+        raise HTTPException(status_code=404, detail="Project not found")
+        
+    doc_ref.delete()
+    
+    return {"message": "Project deleted successfully"}

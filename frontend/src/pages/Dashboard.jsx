@@ -24,6 +24,24 @@ export default function Dashboard() {
         fetchProjects();
     }, [currentUser]);
 
+    const handleDelete = async (e, projectId) => {
+        e.stopPropagation();
+        if (window.confirm("Are you sure you want to delete this project?")) {
+            try {
+                await api.delete(`/projects/${projectId}`);
+                setProjects(projects.filter(p => p.id !== projectId));
+            } catch (error) {
+                console.error("Failed to delete project", error);
+                alert("Failed to delete project");
+            }
+        }
+    };
+
+    const handleEdit = (e, projectId) => {
+        e.stopPropagation();
+        navigate(`/project/${projectId}/configure`);
+    };
+
     return (
         <div className="container fade-in">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
@@ -84,9 +102,28 @@ export default function Dashboard() {
                             </p>
 
                             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1rem', marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                                    Updated {new Date(project.updated_at).toLocaleDateString()}
-                                </span>
+                                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                    <button
+                                        onClick={(e) => handleEdit(e, project.id)}
+                                        className="btn btn-outline"
+                                        style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={(e) => handleDelete(e, project.id)}
+                                        className="btn"
+                                        style={{
+                                            fontSize: '0.8rem',
+                                            padding: '0.4rem 0.8rem',
+                                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                            color: '#ef4444',
+                                            border: '1px solid rgba(239, 68, 68, 0.2)'
+                                        }}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                                 <span style={{ fontSize: '0.8rem', color: 'var(--primary-color)', fontWeight: '500' }}>
                                     Open →
                                 </span>
