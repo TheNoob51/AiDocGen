@@ -23,6 +23,10 @@ app.add_middleware(
 async def root():
     return {"message": "Welcome to the AI Document Authoring Platform API"}
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 # app.include_router(auth.router)
 app.include_router(projects.router)
 app.include_router(generate.router)
