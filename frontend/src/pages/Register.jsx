@@ -22,7 +22,7 @@ export default function Register() {
             setError("");
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value);
-            navigate("/");
+            navigate("/dashboard");
         } catch (err) {
             console.error(err);
             setError("Failed to create an account: " + err.message);

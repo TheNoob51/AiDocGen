@@ -18,19 +18,19 @@ export default function Navbar() {
     }
 
     return (
-        <nav style={{ 
-            position: 'sticky', 
-            top: 0, 
+        <nav style={{
+            position: 'sticky',
+            top: 0,
             zIndex: 50,
-            background: 'rgba(3, 7, 18, 0.8)', 
+            background: 'rgba(3, 7, 18, 0.8)',
             backdropFilter: 'blur(12px)',
             borderBottom: '1px solid var(--border-color)',
             marginBottom: '2rem'
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem' }}>
-                <Link to="/" style={{ 
-                    fontSize: '1.5rem', 
-                    fontWeight: '700', 
+                <Link to="/" style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
                     background: 'var(--primary-gradient)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -42,6 +42,7 @@ export default function Navbar() {
                 <div>
                     {currentUser ? (
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                            <Link to="/dashboard" style={{ color: 'var(--text-primary)', fontSize: '0.9rem', fontWeight: '500' }}>Dashboard</Link>
                             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{currentUser.email}</span>
                             <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
                                 Log Out
