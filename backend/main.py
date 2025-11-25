@@ -9,7 +9,7 @@ origins = [
     "http://localhost:5173",  # Vite default port
     "http://localhost:5174",  # Current frontend port
     "http://localhost:3000",
-    "https://ai-doc-gen-opal.vercel.app/"
+    "https://ai-doc-gen-opal.vercel.app"
 ]
 
 app.add_middleware(
