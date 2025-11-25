@@ -17,6 +17,7 @@ class Project(ProjectBase):
     updated_at: datetime
     content: Optional[Dict[str, Any]] = None # Store generated content structure here
     status: str = "draft" # draft, generating, completed
+    configuration: Optional[Dict[str, Any]] = None # Store configuration (outline/slides)
 
     class Config:
         from_attributes = True

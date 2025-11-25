@@ -62,9 +62,9 @@ export default function ProjectSetup() {
             </div>
 
             {project.document_type === 'docx' ? (
-                <OutlineEditor onSave={handleSave} />
+                <OutlineEditor onSave={handleSave} initialOutline={project.configuration?.outline} />
             ) : (
-                <SlideEditor onSave={handleSave} />
+                <SlideEditor onSave={handleSave} initialSlides={project.configuration?.slides} />
             )}
         </div>
     );
