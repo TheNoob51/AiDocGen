@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, BackgroundTasks
 from ..services.firebase_service import get_db
-from ..services.llm_service import generate_section_content, generate_slide_content, refine_content
+from ..services.llm_service import generate_section_content, generate_slide_content, refine_content, generate_outline_recommendations
 from ..models import Project
 from datetime import datetime
 
@@ -126,3 +126,27 @@ async def refine_content_endpoint(project_id: str, section_key: str, instruction
     })
     
     return {"refined_content": refined_text}
+
+@router.post("/{project_id}/recommend-outline")
+async def recommend_outline_endpoint(project_id: str, current_outline: list[str] = []):
+    db = get_db()
+    if not db:
+        raise HTTPException(status_code=503, detail="Database unavailable")
+    
+    doc_ref = db.collection("projects").document(project_id)
+    doc = doc_ref.get()
+    
+    if not doc.exists:
+        raise HTTPException(status_code=404, detail="Project not found")
+        
+    project_data = doc.to_dict()
+    topic = project_data.get("title")
+    
+    # If topic is in config, use that
+    config = project_data.get("configuration", {})
+    if config.get("topic"):
+        topic = config.get("topic")
+        
+    recommendations = await generate_outline_recommendations(topic, current_outline)
+    
+    return {"recommendations": recommendations}

@@ -109,3 +109,24 @@ async def refine_content(current_content: str, instruction: str) -> str:
         return await generate_content_with_retry(prompt)
     except Exception as e:
         return f"Error refining content: {str(e)}"
+
+async def generate_outline_recommendations(topic: str, current_outline: list[str] = None) -> list[str]:
+    current_outline_str = ", ".join(current_outline) if current_outline else "None"
+    
+    prompt = f"""
+    You are an expert document outliner.
+    Topic: "{topic}"
+    Current Outline Sections: {current_outline_str}
+    
+    Suggest 5-7 relevant, distinct, and professional section titles to add to this outline.
+    Do not duplicate existing sections.
+    Return ONLY a list of section titles, one per line.
+    """
+    
+    try:
+        text = await generate_content_with_retry(prompt)
+        suggestions = [line.strip().lstrip('-* ').strip() for line in text.split('\n') if line.strip()]
+        return suggestions
+    except Exception as e:
+        print(f"Error generating outline recommendations: {e}")
+        return []
