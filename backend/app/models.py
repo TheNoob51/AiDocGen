@@ -18,6 +18,7 @@ class Project(ProjectBase):
     content: Optional[Dict[str, Any]] = None # Store generated content structure here
     status: str = "draft" # draft, generating, completed
     configuration: Optional[Dict[str, Any]] = None # Store configuration (outline/slides)
+    history: List[Dict[str, Any]] = [] # Store history of edits
 
     class Config:
         from_attributes = True

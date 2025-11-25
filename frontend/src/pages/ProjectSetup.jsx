@@ -54,11 +54,23 @@ export default function ProjectSetup() {
 
     return (
         <div className="container" style={{ maxWidth: '800px', marginTop: '2rem' }}>
-            <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ marginBottom: '0.5rem' }}>{project.title}</h1>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                    {project.document_type === 'docx' ? 'Word Document' : 'PowerPoint Presentation'} Configuration
-                </p>
+            <div style={{ marginBottom: '2rem', display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                <button
+                    onClick={() => navigate('/dashboard')}
+                    className="btn btn-outline"
+                    style={{ padding: '0.5rem', border: 'none', marginTop: '0.25rem' }}
+                    title="Back to Dashboard"
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div>
+                    <h1 style={{ marginBottom: '0.5rem' }}>{project.title}</h1>
+                    <p style={{ color: 'var(--text-secondary)' }}>
+                        {project.document_type === 'docx' ? 'Word Document' : 'PowerPoint Presentation'} Configuration
+                    </p>
+                </div>
             </div>
 
             {project.document_type === 'docx' ? (

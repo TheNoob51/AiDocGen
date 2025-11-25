@@ -100,6 +100,13 @@ async def refine_content_endpoint(project_id: str, section_key: str, instruction
     
     refined_text = await refine_content(current_text, instruction)
     
+    # Create history item
+    history_item = {
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "description": f"Refined {section_key} with instruction: {instruction}",
+        "previous_content": project_data.get("content", {})
+    }
+    
     # Update content
     if project_data.get("document_type") == "docx":
         content[section_key] = refined_text
@@ -108,8 +115,13 @@ async def refine_content_endpoint(project_id: str, section_key: str, instruction
         bullets = [line.strip().lstrip('-* ') for line in refined_text.split('\n') if line.strip()]
         content[section_key]["content"]["bullets"] = bullets
         
+    # Get existing history or initialize
+    history = project_data.get("history") or []
+    history.append(history_item)
+
     doc_ref.update({
         "content": content,
+        "history": history,
         "updated_at": datetime.utcnow()
     })
     

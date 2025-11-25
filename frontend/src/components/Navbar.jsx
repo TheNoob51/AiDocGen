@@ -24,8 +24,7 @@ export default function Navbar() {
             zIndex: 50,
             background: 'rgba(3, 7, 18, 0.8)',
             backdropFilter: 'blur(12px)',
-            borderBottom: '1px solid var(--border-color)',
-            marginBottom: '2rem'
+            borderBottom: '1px solid var(--border-color)'
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem' }}>
                 <Link to="/" style={{
