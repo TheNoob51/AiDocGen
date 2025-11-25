@@ -29,15 +29,23 @@ export default function Navbar() {
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem' }}>
                 <Link to="/" style={{
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                    background: 'var(--primary-gradient)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    fontFamily: 'var(--font-heading)',
-                    letterSpacing: '-0.03em'
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    textDecoration: 'none'
                 }}>
-                    AI DocGen
+                    <img src="/assets/logo_main.png" alt="AI DocGen Logo" style={{ height: '32px', width: 'auto' }} />
+                    <span style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '700',
+                        background: 'var(--primary-gradient)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontFamily: 'var(--font-heading)',
+                        letterSpacing: '-0.03em'
+                    }}>
+                        AI DocGen
+                    </span>
                 </Link>
                 <div>
                     {currentUser ? (
