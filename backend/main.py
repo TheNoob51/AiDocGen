@@ -9,6 +9,8 @@ origins = [
     "http://localhost:5173",  # Vite default port
     "http://localhost:5174",  # Current frontend port
     "http://localhost:3000",
+    "https://ai-doc-gen-git-master-gyan-vardhans-projects.vercel.app"
+    "https://ai-doc-k0wje420m-gyan-vardhans-projects.vercel.app"
 ]
 
 app.add_middleware(
