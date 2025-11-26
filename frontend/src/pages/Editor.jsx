@@ -88,16 +88,7 @@ export default function Editor() {
         <div className="container" style={{ maxWidth: '1000px', marginTop: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <button
-                        onClick={() => window.location.href = '/dashboard'}
-                        className="btn btn-outline"
-                        style={{ padding: '0.5rem', border: 'none' }}
-                        title="Back to Dashboard"
-                    >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
-                    </button>
+
                     <div>
                         <h1 style={{ marginBottom: '0.5rem', lineHeight: 1 }}>{project.title}</h1>
                         <span style={{

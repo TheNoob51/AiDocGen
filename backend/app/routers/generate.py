@@ -127,8 +127,13 @@ async def refine_content_endpoint(project_id: str, section_key: str, instruction
     
     return {"refined_content": refined_text}
 
+from pydantic import BaseModel
+
+class OutlineRecommendationRequest(BaseModel):
+    current_outline: list[str] = []
+
 @router.post("/{project_id}/recommend-outline")
-async def recommend_outline_endpoint(project_id: str, current_outline: list[str] = []):
+async def recommend_outline_endpoint(project_id: str, request: OutlineRecommendationRequest):
     db = get_db()
     if not db:
         raise HTTPException(status_code=503, detail="Database unavailable")
@@ -143,10 +148,10 @@ async def recommend_outline_endpoint(project_id: str, current_outline: list[str]
     topic = project_data.get("title")
     
     # If topic is in config, use that
-    config = project_data.get("configuration", {})
+    config = project_data.get("configuration") or {}
     if config.get("topic"):
         topic = config.get("topic")
         
-    recommendations = await generate_outline_recommendations(topic, current_outline)
+    recommendations = await generate_outline_recommendations(topic, request.current_outline)
     
     return {"recommendations": recommendations}

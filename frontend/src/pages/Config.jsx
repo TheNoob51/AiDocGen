@@ -43,22 +43,7 @@ export default function Config() {
         <div className="container fade-in" style={{ maxWidth: '800px', marginTop: '3rem' }}>
             <div className="card">
                 <div style={{ textAlign: 'center', marginBottom: '3rem', position: 'relative' }}>
-                    <button
-                        onClick={() => navigate('/dashboard')}
-                        className="btn btn-outline"
-                        style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            padding: '0.5rem',
-                            border: 'none'
-                        }}
-                        title="Back to Dashboard"
-                    >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
-                    </button>
+
                     <h2 style={{ marginBottom: '0.5rem' }}>Create New Project</h2>
                     <p style={{ color: 'var(--text-secondary)' }}>Define your document requirements to get started</p>
                 </div>
