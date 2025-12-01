@@ -102,11 +102,15 @@ export default function OutlineEditor({ initialOutline, onSave, projectId }) {
                                 onClick={() => handleAdd(rec)}
                                 className="btn"
                                 style={{
-                                    backgroundColor: 'var(--background-paper)',
-                                    border: '1px solid var(--border-color)',
+                                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                                    border: '1px solid var(--primary-color)',
+                                    color: 'white',
                                     fontSize: '0.9rem',
-                                    padding: '0.25rem 0.75rem',
-                                    height: 'auto'
+                                    padding: '0.5rem 1rem',
+                                    height: 'auto',
+                                    borderRadius: '2rem',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease'
                                 }}
                             >
                                 + {rec}
