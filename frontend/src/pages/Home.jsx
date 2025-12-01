@@ -8,7 +8,7 @@ import instantExpImg from '../assets/instant_export.png';
 import secureImg from '../assets/secure_logo.png';
 import realTimeImg from '../assets/real_time.png';
 
-import bg1 from '../assets/bg_1.jpg';
+import bg1 from '../assets/bg_1.png';
 
 export default function Home() {
     const { currentUser } = useAuth();
@@ -16,8 +16,9 @@ export default function Home() {
     return (
         <>
             <div className="fade-in" style={{ width: '100%', height: '60vh', position: 'relative', overflow: 'hidden' }}>
+
+
                 <img src={bg1} alt="Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent, var(--bg-dark))' }}></div>
             </div>
 
             <div className="container fade-in" style={{
@@ -25,7 +26,7 @@ export default function Home() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                marginTop: '-15vh',
+                marginTop: '-4.5rem',
                 position: 'relative',
                 zIndex: 10
             }}>
