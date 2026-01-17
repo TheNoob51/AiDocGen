@@ -35,7 +35,44 @@ A full-stack web application designed to help users generate, refine, and export
 
 ---
 
-## 🛠 Tech Stack
+## � Gallery
+
+<div align="center">
+  <h3>Home Page</h3>
+  <img src="./frontend/examples/HomePage.png" alt="Home Page" width="100%">
+</div>
+
+<br>
+
+<div align="center">
+  <h3>Authentication</h3>
+  <img src="./frontend/examples/LoginPage.png" alt="Login Page" width="45%">
+  <img src="./frontend/examples/SignUpPage.png" alt="Sign Up Page" width="45%">
+</div>
+
+<br>
+
+<div align="center">
+  <h3>Dashboard & Project Creation</h3>
+  <img src="./frontend/examples/DashBoardPage.png" alt="Dashboard" width="100%">
+  <br><br>
+  <img src="./frontend/examples/NewProjectWord.png" alt="New Project" width="100%">
+</div>
+
+<br>
+
+<div align="center">
+  <h3>AI-Powered Generation</h3>
+  <img src="./frontend/examples/AISuggestionsAdding.png" alt="AI Suggestions" width="100%">
+  <br><br>
+  <img src="./frontend/examples/CreatingTheDocument.png" alt="Generative Process" width="100%">
+</div>
+
+<br>
+
+---
+
+## �🛠 Tech Stack
 
 ### Frontend
 *   **Framework**: [React](https://reactjs.org/) (v19)
