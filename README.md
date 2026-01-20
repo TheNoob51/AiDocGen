@@ -1,4 +1,4 @@
-# AI-Assisted Document Authoring Platform
+# AiDocGen - AI-Assisted Document Authoring Platform
 
 A full-stack web application designed to help users generate, refine, and export structured business documents (Word & PowerPoint) using the power of Google Gemini AI.
 
